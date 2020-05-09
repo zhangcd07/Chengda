@@ -48,3 +48,4 @@ theme: plainwhite
 plugins:
   - jekyll-seo-tag
 #  - jekyll-feed
+remote_theme: thelehhman/plainwhite-jekyll
