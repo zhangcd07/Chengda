@@ -1,7 +1,7 @@
 header{
     background-image: url('../images/header-background.jpg');
     background-color: rgb(174, 101, 241);
-    height: 216px;
+    height: 210px;
 }
 nav{
     text-align: center;
@@ -37,12 +37,14 @@ h1{
     display:inline-block;
     float: left;
     width: 70%;
+    line-height: 20pt;
 }
 img{
-    width:50%;
+    width:70%;
     margin: 50px auto;
 }
 footer{
+    display: block;
     text-align: center;
 }
 body{
@@ -50,4 +52,24 @@ body{
     margin: 10px;
     background-color: #CCCCCC;
     font-family: sans-serif;
-    }
+}
+
+.ps{
+    width: 960px;
+    margin: 0 auto;
+    padding: 10px;
+    line-height: 25pt;
+    text-align:justify;
+}
+
+#aboutlinktotop{
+    text-align: center;
+    display: block;
+}
+
+.Experience{
+    width: 70%;
+    font-size: 110%;
+    margin: 0 auto;
+    line-height: 30pt;
+}
