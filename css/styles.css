@@ -91,7 +91,7 @@ h1{
     margin-right: 10%;
 }
 img{
-    width:70%;
+    width:66%;
     margin: 50px auto;
 }
 footer{
@@ -123,5 +123,44 @@ body{
     font-size: 110%;
     margin: 0 auto;
     line-height: 30pt;
+    text-align:justify;
+}
+
+.Experience h2{
+    text-align: center;
+}
+
+.Experience h4{
+    text-align: right;
+}
+
+.Experience p{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.Experience img{
+    display:block;
+    width: 100%;
+}
+
+.Blog{
+    width: 70%;
+    line-height: 20pt;
+    display: block;
+    margin: 0 auto;
+    border-top: 3px solid rgb(38, 2, 122);
+    clear: both;
+}
+
+.Blog h2{
+    text-align: center;
+}
+
+.Blog h4{
+    line-height: 0pt;
+}
+
+.Blog p{
     text-align:justify;
 }
