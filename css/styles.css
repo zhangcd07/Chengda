@@ -18,7 +18,7 @@ nav a{
     display: inline-block;
     width:  10%;
     color: #FFFFFF;
-    transition: 2s ease;
+    transition: 2s background-color;
     
 }
 
