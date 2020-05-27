@@ -55,7 +55,7 @@ body{
 }
 
 .ps{
-    width: 960px;
+    width: 80%;
     margin: 0 auto;
     padding: 10px;
     line-height: 25pt;
@@ -72,4 +72,5 @@ body{
     font-size: 110%;
     margin: 0 auto;
     line-height: 30pt;
+    text-align:justify;
 }
