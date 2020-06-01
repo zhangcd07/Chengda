@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chengda Zhang</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Chengda Zhang, MD</h1>
+        <nav>
+            <ul>
+                <li class="current"><a  href="index.html">Home</a></li>
+                <li><a href="about.html">About me</a></li>
+                <li><a href="Experience.html">Experience</a></li>
+                <li><a href="skills.html">Skills</a></li>
+                <li><a href="publications.html">Publications</a>
+                    <ul>
+                        <li><a href="publications.html#journal">Journal</a></li>
+                        <li><a href="publications.html#products">Products</a></li>
+                        <li><a href="publications.html#conference">Conference</a></li>
+                    </ul>
+                </li>
+                <li><a href="mailto:zhangcd07@outlook.com">Contact me</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="Experience">
+        <h2>Modeling of High COVID-19 Disease Burden Areas in New York City Using Location Data</h2>
+        <h4>By Chengda Zhang, MD</h4>
+        <h4>5/14/2020</h4>
+        <ol>
+            <li>
+                <h3>Introduction</h3>
+                <ol>
+                    <li>
+                        <h5>Background</h5>
+                        <p>The New York City (NYC) has experienced an outbreak of COVID-19 in the past 3 months. According to the data presented by NYC Health Department, different neighborhoods or <a href='https://data.cityofnewyork.us/Health/Modified-Zip-Code-Tabulation-Areas-MODZCTA-Map/5fzm-kpwv' target="_blank">modified zip code areas (MODZCTA)</a> are affected differently by COVID-19. Distribution of stores/facilities/restaurants/clubs in NYC may directly affect the outbreak or be indirectly associated with COVID-19 through close connection with local social economic situation. Therefore the location data may be helpful in predicting disease burden of a certain neighborhood.</p>
+                    </li>
+                    <li>
+                        <h5>Problem</h5>
+                        <p>As more US cities are facing outbreaks of COVID-19, modeling case burden of COVID-19 in NYC will help us allocate proper resources and polices to other urban areas. </p>
+                    </li>
+                    <li>
+                        <h5>Goal</h5>
+                        <p>I aim to use location data from Foursquare to model the disease burden of COVID-19 in different <a href='https://data.cityofnewyork.us/Health/Modified-Zip-Code-Tabulation-Areas-MODZCTA-Map/5fzm-kpwv' target="_blank">MODZCTAs</a> of NYC.</p>
+                    </li>
+                </ol>
+            </li>
+            <li>
+                <h3>Data acquisition and cleaning</h3>
+                <ol>
+                    <li>
+                        <h5>Data source</h5>
+                        <p>COVID-19 case burden by MODZCTA and geographic boundary of each MODZCTA are obtained from <a href='https://github.com/nychealth/coronavirus-data/blob/master/tests-by-zcta.csv' target="_blank">NYC Health Department</a> on 5/13/2020. The distribution of cases by neighborhoods can be viewed on a <a href="https://projects.thecity.nyc/2020_03_covid-19-tracker/">map</a>. NYC venues and category information is queried from <a href='https://developer.foursquare.com/' target='_blank'>Foursquare</a>. First, the coordinates of all NYC neighborhoods (geographic center) were obtained from <a href='https://geo.nyu.edu/catalog/nyu-2451-34572' target="_blank">NYU</a>. Then the coordinates were used to query Foursquare, pulling up to 277 venues information within 500 meters radius on map.</p>                        
+                    </li>
+                    <li>
+                        <h5>Data cleaning</h5>
+                        <p>After obtaining data, we use geographic boundary to determine which MODZCTA a venue belongs to. We have discarded all venues that are not physically located in any MODZCTAs.
+                        </p>
+                    </li>
+                    <li>
+                        <h5>Feature selection</h5>
+                        <p>All venues are categorized into 10 groups: Food, College or University, Event, Arts and Entertainment, Nightlife Spot, Outdoors or Recreation, Professional or Other Places, Shop or Services, Travel or Transport, and Residence. The number of venues of each group in a certain neighborhood will be used as features for linear regression as well as polynomial regression.
+                            <br/>
+                            Foursquare also asigns a "Venue Category" parameter to each venue, which is more detailed than the above 10 groups. For example, a restaurant could be categorized as a "American restaurant" rather than the general term "food". All venues belongs to 412 venue categories. The number of venues of each venue category in a certain neighborhood will be used as features for Multi-layer Perceptron Classifier, Random Forest Classifier and Gradient Boosting Classifier, after transformed with Sklearn Standard Scaler. 
+                        </p>
+                    </li>
+                </ol>
+            </li>
+            <li>
+                <h3>Exploratory analysis</h3>
+                <ol>
+                    <li>
+                        <h5>Multivariate linear regression</h5>
+                        <p>Multivariate linear regression was performed to explore model that could predict the number of cases in each MODZCTA. The dataset were randomly split into training sample (90% of data) and testing sample (10% of data) using train-test split function of Sklearn. After a linear regression model was trained using training sample, a distribution plot of predicted value using testing sample vs actual value was made. 
+                            <figure>
+                                <img src="images/NYCfigure1.png", alt="linear regression prediction vs actual distribution">
+                                <figurecaption>Figure 1 Distribution plot of predicted value using testing data vs actual data by multivariate linear regression</figurecaption>
+                            </figure>
+                            <br/>
+                            The model was evaluated using R2 score by 10-fold crossvalidation. The mean value for R2 was -1.34, indicating poor performance of the model.
+                        </p>
+                    </li>
+                        <h5>Polynomial regression</h5>
+                        <p>Then Polynomial regression was performed to explore model that could predict the number of cases in each MODZCTA. The 10 features were transformed using Sklearn Polynomial Features function into 55 variables. The dataset were then randomly split into training sample (90% of data) and testing sample (10% of data) using train-test split function of Sklearn. After a linear regression model was trained using training sample, a distribution plot of predicted value using testing sample vs actual value was made.
+                            <figure>
+                                <img src="images/NYCfigure2.png", alt="Polynomial regression prediction vs actual distribution">
+                                <figurecaption>Figure 2 Distribution plot of predicted value using testing data vs actual data by polynomial regression</figurecaption>
+                            </figure>
+                                <br/>
+                            The model was evaluated using R2 score by 10-fold crossvalidation. The mean value for R2 was -34.88, indicating poor performance of the model.
+                        </p>
+
+                </ol>
+                <p>
+                    Due to the poor performance of regression models, it is believed that although venue categories may be partially associated with COVID-19 case number, it could not explain the full variation between neighborhoods. A regression model using geographic data to accurately predict COVID-19 case number may not exist. Therefore, the case number is converted into a categorical target called "high disease burden" defined as more than 1,500 cases in the MODZCTA. Fourty-one out of 177 MODZCTAs are identified as high disease burden areas. We will attempt to make classifiers that could recognize high disease burden MODZCTAs. 
+                </p>
+            </li>
+            <li>
+                <h3>Results</h3>
+                <ol>
+                    <li>
+                        <h5>Multi-layer Perceptron Classifier</h5>
+                        <p>As above, the classifier was built using vanue category, and the target was to identify high disease burden MODZCTA. We first set alpha=1e-5. The classifier was then evaluated using accuracy, recall, precision and F1 score, by 5-fold crossvalidation.</p>
+                        <table>
+                            <caption>Table 1 Crossvalidation result of multi-layer perceptron classifier</caption>
+                            <tr>
+                                <th>Parameters</th>
+                                <th>Round 1</th><th>Round 2</th><th>Round 3</th><th>Round 4</th><th>Round 5</th><th>Mean</th>
+                            </tr>
+                            <tr>
+                                <td>Accuracy</td><td>0.88</td><td>0.81</td><td>0.74</td><td>0.68</td><td>0.64</td><td>0.75</td>
+                            </tr>
+                            <tr>
+                                <td>Recall</td><td>0.71</td><td>0.72</td><td>0.58</td><td>0.59</td><td>0.57</td><td>0.64</td>
+                            </tr>
+                            <tr>
+                                <td>Precision</td><td>0.93</td><td>0.72</td><td>0.60</td><td>0.58</td><td>0.55</td><td>0.68</td>
+                            </tr>
+                            <tr>
+                                <td>F1</td><td>0.76</td><td>0.72</td><td>0.59</td><td>0.58</td><td>0.55</td><td>0.64</td>
+                            </tr>
+                        </table>
+                        <p>Alpha was then set to 0.01. Another 5-fold crossvalidation was performed.</p>
+                        <table>
+                            <caption>Table 2 Crossvalidation result of random forest classifier</caption>
+                            <tr>
+                                <th>Parameters</th>
+                                <th>Round 1</th><th>Round 2</th><th>Round 3</th><th>Round 4</th><th>Round 5</th><th>Mean</th>
+                            </tr>
+                            <tr>
+                                <td>Accuracy</td><td>0.84</td><td>0.77</td><td>0.74</td><td>0.68</td><td>0.68</td><td>0.74</td>
+                            </tr>
+                            <tr>
+                                <td>Recall</td><td>0.69</td><td>0.60</td><td>0.63</td><td>0.59</td><td>0.59</td><td>0.62</td>
+                            </tr>
+                            <tr>
+                                <td>Precision</td><td>0.80</td><td>0.66</td><td>0.63</td><td>0.58</td><td>0.58</td><td>0.65</td>
+                            </tr>
+                            <tr>
+                                <td>F1</td><td>0.72</td><td>0.61</td><td>0.63</td><td>0.58</td><td>0.58</td><td>0.62</td>
+                            </tr>
+                        </table>
+                    </li>
+<!--                   <li>
+                        <h5>Support Vector Classifier</h5>
+                        <p>The parameters for support vector classifier were first optimized using grid search CV. C was set at 10, and gamma was first set at 0.0001. The classifier was then evaluated using accuracy, recall, precision and F1 score, by 5-fold crossvalidation.</p>
+                        <table>
+                            <tr>
+                                <th>Parameters</th>
+                                <th>Round 1</th><th>Round 2</th><th>Round 3</th><th>Round 4</th><th>Round 5</th><th>Mean</th>
+                            </tr>
+                            <tr>
+                                <td>Accuracy</td><td>0.78</td><td>0.77</td><td>0.77</td><td>0.77</td><td>0.77</td><td>0.78</td>
+                            </tr>
+                            <tr>
+                                <td>Recall</td><td>0.50</td><td>0.50</td><td>0.50</td><td>0.50</td><td>0.50</td><td>0.50</td>
+                            </tr>
+                            <tr>
+                                <td>Precision</td><td>0.39</td><td>0.39</td><td>0.39</td><td>0.39</td><td>0.39</td><td>0.39</td>
+                            </tr>
+                            <tr>
+                                <td>F1</td><td>0.44</td><td>0.44</td><td>0.44</td><td>0.44</td><td>0.44</td><td>0.44</td>
+                            </tr>
+                        </table>
+                    </li>--> 
+                    <li>
+                        <h5>Random Forest Classifier</h5>
+                        <p>The random forest classifier was made and evaluated by 5-fold crossvalidation. Result is shown below.</p>
+                        <table>
+                            <caption>Table 3 Crossvalidation result of random forest classifier</caption>
+                            <tr>
+                                <th>Parameters</th>
+                                <th>Round 1</th><th>Round 2</th><th>Round 3</th><th>Round 4</th><th>Round 5</th><th>Mean</th>
+                            </tr>
+                            <tr>
+                                <td>Accuracy</td><td>0.81</td><td>0.84</td><td>0.84</td><td>0.81</td><td>0.77</td><td>0.81</td>
+                            </tr>
+                            <tr>
+                                <td>Recall</td><td>0.57</td><td>0.69</td><td>0.64</td><td>0.57</td><td>0.55</td><td>0.60</td>
+                            </tr>
+                            <tr>
+                                <td>Precision</td><td>0.90</td><td>0.80</td><td>0.91</td><td>0.90</td><td>0.65</td><td>0.83</td>
+                            </tr>
+                            <tr>
+                                <td>F1</td><td>0.57</td><td>0.72</td><td>0.68</td><td>0.57</td><td>0.54</td><td>0.62</td>
+                            </tr>
+                        </table>
+                    </li>
+                    <li>
+                        <h5>Gradient Boosting Classifier</h5>
+                        <p>
+                            The gradient boosting classifier was made and evaluated by 5-fold crossvalidation. Result is shown below.
+                        </p>
+                        <table>
+                            <caption>Table 4 Crossvalidation result of gradient boosting classifier</caption>
+                            <tr>
+                                <th>Parameters</th>
+                                <th>Round 1</th><th>Round 2</th><th>Round 3</th><th>Round 4</th><th>Round 5</th><th>Mean</th>
+                            </tr>
+                            <tr>
+                                <td>Accuracy</td><td>0.81</td><td>0.84</td><td>0.84</td><td>0.81</td><td>0.84</td><td>0.83</td>
+                            </tr>
+                            <tr>
+                                <td>Recall</td><td>0.57</td><td>0.64</td><td>0.64</td><td>0.57</td><td>0.64</td><td>0.61</td>
+                            </tr>
+                            <tr>
+                                <td>Precision</td><td>0.90</td><td>0.91</td><td>0.91</td><td>0.90</td><td>0.91</td><td>0.91</td>
+                            </tr>
+                            <tr>
+                                <td>F1</td><td>0.57</td><td>0.68</td><td>0.68</td><td>0.57</td><td>0.68</td><td>0.63</td>
+                            </tr>
+                        </table>
+                    </li>
+                    <li>
+                        <h5>Dummy Selector</h5>
+                        <p>The performance of dummy selector using the same dataset is listed here for comparison with the above classifiers.</p>
+                        <table>
+                            <caption>Table 5 Crossvalidation result of dummy selector</caption>
+                            <tr>
+                                <th>Parameters</th>
+                                <th>Round 1</th><th>Round 2</th><th>Round 3</th><th>Round 4</th><th>Round 5</th><th>Mean</th>
+                            </tr>
+                            <tr>
+                                <td>Accuracy</td><td>0.78</td><td>0.77</td><td>0.77</td><td>0.77</td><td>0.77</td><td>0.78</td>
+                            </tr>
+                            <tr>
+                                <td>Recall</td><td>0.50</td><td>0.50</td><td>0.50</td><td>0.50</td><td>0.50</td><td>0.50</td>
+                            </tr>
+                            <tr>
+                                <td>Precision</td><td>0.39</td><td>0.39</td><td>0.39</td><td>0.39</td><td>0.39</td><td>0.39</td>
+                            </tr>
+                            <tr>
+                                <td>F1</td><td>0.44</td><td>0.44</td><td>0.44</td><td>0.44</td><td>0.44</td><td>0.44</td>
+                            </tr>
+                        </table>
+                    </li>
+                </ol>
+            </li>
+            <li>
+                <h3>Discussion</h3>
+                <p>In this study, we used location data to predict disease burden of COVID-19 in NYC's MODZCTAs. We identified two classifier models, namingly gradient boosting and random forest classifiers, that showed relatively higher accuracy and precision.
+                    <br/>When looking for a model to identify high disease burden areas, we really wants the sensitivity (or recall score, the equivalent term in machine learning) to be as high as possible, because missing an area with high disease burden may cause more harm than allocating too much resource to an area that does not need it.
+                    The recall score of all 3 classifiers were only slightly higher than dummy selector, indicating poor performance.
+                    Therefore, the use of the above classifiers, especially when applying to other US cities should be done with extreme caution. 
+                    <br/>With a high precision in the gradient boosting and random forest classifiers, a neighborhood classified as high disease burden area is of high likelyhood of becoming one.
+                    <br/>The limitation of this study is that NYC is a unique city of US. Data from NYC may not be applicable to the rest of US cities. Our model does not consider racial distribution, healthcare resources, and other known confounding factors for COVID-19 disease burden, therefore the results of this study is weakened, and there should not be any causal relationship made from our data. (ie, one should never conclude that a certain type of venue is associated with COVID-19 from this study.)
+                </p>
+            </li>
+            <li>
+                <h3>Conclusion</h3>
+                <p>We have identified two classifiers with relatively robust precision in identifying high disease burden neighborhood. However, those models have low sensitivity, and should not be used as the only decision support method.</p>
+            </li>
+        </ol>
+        <p>
+            This work is solely done by Chengda Zhang, MD. The source code of this work is available through <a href="https://github.com/zhangcd07/NYC-COVID-19/blob/master/COVIDprojectsubmit.ipynb">Github</a>.
+        </p>
+    </section>
+    <footer>
+        <a href=#top id="aboutlinktotop">Back to top</a>
+        <p>Created and designed by Chengda Zhang</p>
+    </footer>
+</body>
