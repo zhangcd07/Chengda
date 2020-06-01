@@ -29,6 +29,13 @@
         <h2>Modeling of High COVID-19 Disease Burden Areas in New York City Using Location Data</h2>
         <h4>By Chengda Zhang, MD</h4>
         <h4>5/14/2020</h4>
+        <h3>Abstract</h3>
+        <p><strong>Rationale</strong>: The New York City (NYC) has experienced an outbreak of COVID-19 in the past 3 months. According to the data presented by NYC Health Department, different neighborhoods or modified zip code areas (MODZCTA) are affected differently by COVID-19. Distribution of stores/facilities/restaurants/clubs in neighborhood may directly affect the outbreak or be indirectly associated with COVID-19 through close connection with local social economic status. In this study, we aim to use location data from Foursquare.com to model the disease burden of COVID-19 in different MODZCTAs of NYC.
+            <br/><strong>Methods</strong>: COVID-19 case burden by MODZCTA and geographic boundary of each MODZCTA are obtained from NYC Health Department on 5/13/2020. NYC venues and category information is queried from Foursquare. All venues are categorized into 10 groups, as well as 412 more detailed “venue categories” assigned by Foursquare. The modeling was attempted with linear, polynomial regression, and multi-layer perceptron, random forest, gradient boosting classifiers. Regression models target to predict case numbers of an MODZCTA, classifiers target to identify MODZCTA with high disease burden (case number>1,500). All analysis was done with Python 3, and source code could be found at Github[1].
+            <br/><strong>Results</strong>: The linear and polynomial regression models were evaluated with 10-fold cross validation, and average of R2 were -1.34 and -34.88 respectively, indicating poor correlation. The three classifiers were compared with dummy selector. Gradient boosting classifier had the best performance as evaluated by 5-fold cross validation, with mean accuracy of 83%, recall (or sensitivity) of 61%, precision of 91%, and F1 score of 0.63, while the dummy selector had mean accuracy of 78%, recall of 50%, precision of 39% and F1 score of 0.44.
+            <br/><strong>Conclusions</strong>: We have identified a classifier with relatively robust precision in identifying high disease burden neighborhood. However, it has low sensitivity, and should not be used as the only decision support method.
+            </p>
+        <img src="images/ATSRAPIDChengda.png" alt="summary slide">
         <ol>
             <li>
                 <h3>Introduction</h3>
@@ -104,7 +111,7 @@
                         <h5>Multi-layer Perceptron Classifier</h5>
                         <p>As above, the classifier was built using vanue category, and the target was to identify high disease burden MODZCTA. We first set alpha=1e-5. The classifier was then evaluated using accuracy, recall, precision and F1 score, by 5-fold crossvalidation.</p>
                         <table>
-                            <caption>Table 1 Crossvalidation result of multi-layer perceptron classifier</caption>
+                            <caption>Table 1 Crossvalidation result of multi-layer perceptron classifier, alpha=1e-5</caption>
                             <tr>
                                 <th>Parameters</th>
                                 <th>Round 1</th><th>Round 2</th><th>Round 3</th><th>Round 4</th><th>Round 5</th><th>Mean</th>
@@ -124,7 +131,7 @@
                         </table>
                         <p>Alpha was then set to 0.01. Another 5-fold crossvalidation was performed.</p>
                         <table>
-                            <caption>Table 2 Crossvalidation result of random forest classifier</caption>
+                            <caption>Table 2 Crossvalidation result of multi-layer perceptron classifier, alpha=0.01</caption>
                             <tr>
                                 <th>Parameters</th>
                                 <th>Round 1</th><th>Round 2</th><th>Round 3</th><th>Round 4</th><th>Round 5</th><th>Mean</th>
