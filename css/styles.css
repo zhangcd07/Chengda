@@ -89,12 +89,14 @@ h1{
     line-height: 20pt;
     margin-top: 30px;
     margin-right: 10%;
+    margin-bottom: 30px;
 }
 img{
     width:66%;
     margin: 50px auto;
 }
 footer{
+    margin: 50px auto;
     display: block;
     text-align: center;
 }
@@ -124,6 +126,7 @@ body{
     margin: 0 auto;
     line-height: 30pt;
     text-align:justify;
+    margin-top: 50px;
 }
 
 .Experience h2{
@@ -149,7 +152,7 @@ body{
     line-height: 20pt;
     display: block;
     margin: 0 auto;
-    border-top: 3px solid rgb(38, 2, 122);
+    border-top: 2px solid rgb(38, 2, 122, 50%);
     clear: both;
 }
 
