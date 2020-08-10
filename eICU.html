@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chengda Zhang</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Chengda Zhang, MD</h1>
+        <nav>
+            <ul>
+                <li><a  href="index.html">Home</a></li>
+                <li><a href="about.html">About me</a></li>
+                <li><a href="Experience.html">Experience</a></li>
+                <li><a href="skills.html">Skills</a></li>
+                <li class="current"><a href="publications.html">Publications</a>
+                    <ul>
+                        <li><a href="publications.html#journal">Journal</a></li>
+                        <li><a href="publications.html#conference">Conference</a></li>
+                        <li><a href="publications.html#products">Products</a></li>
+                        <li><a href="publications.html#pubinprep">Under Preparation</a></li>
+                    </ul>
+                </li>
+                <li><a href="mailto:zhangcd07@outlook.com">Contact me</a></li>
+            </ul>
+        </nav>
+    </header>
+    <p> </p>
+    <h2>The Analysis of eICU Collaborative Research Database (eICU-CRD)</h2>
+    <h3>Setting up local database</h3>
+    <p>The intalling process for local eICU database is described in the <a href="https://eicu-crd.mit.edu/tutorials/install_eicu_locally/">eICU-CRD</a> website. However while
+    doing so, I encountered large work volume in setting up local tables with appropreate variables and the mission became impossible when the size of a single csv file exceeds 1Gb.
+    Therefore, I have created and shared a way to set up local postgreSQL database with python. Using this method, I have successfully inserted all my csv into database, including
+    the vital sign table which had over 140 million rows.</p>
+    <footer>
+        <a href=#top id="aboutlinktotop">Back to top</a>
+        <p>Created and designed by Chengda Zhang</p>
+    </footer>
+</body>
