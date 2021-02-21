@@ -203,3 +203,6 @@ caption{
     font-weight: bold;
 }
 
+figurecaption{
+    text-align: center;
+}
