@@ -37,6 +37,16 @@
     Therefore, I have created and shared a way to set up local postgreSQL database with python. Using this method, I have successfully inserted all my csv into database, including
     the vital sign table which had over 140 million rows. My source code is available on <a href="https://github.com/zhangcd07/eICU/blob/master/csv_insertion.py">Github</a>.</p>
         </li>
+        <li>
+            <h3>Side notes of eICU database</h3>
+            <p>While working on my eICU database, I realized some features of this database:</p>
+            <uL>
+                <li>Definitely take a look at apacheApsVar, apachePatientResult and apachePredVar before you start digging into the specific tables. Somehow the creators of eICU database did some secondary statistics based on available data, and saved them into these 3 tables. Sometimes it would save you a lot of time from making your own nomenclature.</li>
+                <li>
+                    There are multiple places where you can get patient's O2 requirement. apacheAps table has a variable called FiO2, which is the FiO2 at presentation. respiratoryCharting will give the most detailed view.
+                </li>
+            </uL>
+        </li>
     </ol>
     </section>
     <footer>
