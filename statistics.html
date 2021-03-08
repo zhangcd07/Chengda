@@ -26,11 +26,11 @@
             </ul>
         </nav>
     </header>
-    <section>
+    <section class="Experience">
         <h2>Statistics</h2>
         <ul>
             <li>
-                DO NOT even try to compare the upper/lower limits of confidence intervals. A risk factor with upper limit of CI in 100s, is not riskier than another one with upper limit in 10s.
+                <b>DO NOT</b>, DO NOT even try to compare the upper/lower limits of confidence intervals. A risk factor with upper limit of CI in 100s, is not riskier than another one with upper limit in 10s.
                 The confidence interval is just a statistical value you get from this one time trial. If you repeat the trial, you will get a different confidence interval. That's the same concept 
                 as sample average. You get a different sample average every time, because the samples are different. <br> 
                 Back to the definition of a confidence interval. A 95% confidence interval means that the actual value you are looking for has a 95% chance of being within this interval. Remember, 
@@ -38,6 +38,11 @@
                 times, you get 100 different 95% confidence intervals, and on average, 5 of them will not cover the actual value. Within any of your confidence intervals, the actual value could be 
                 ANYWHERE, it does NOT change when the upper limit is super high or lower limit is very low.
                 <img src="images/confidence-interval.png" alt="confidence interval">
+            </li>
+            <li>
+                Using bootstrap method to calculate confidence interval is a modern method relying heavily on the computational capability, with minimal necisity of understanding the mathmatical 
+                model of your statistics. If you have big enough dataset, and strong enough computational capability, you should be able to give any statistics a confidence interval. MIT has a good 
+                <a href="https://ocw.mit.edu/courses/mathematics/18-05-introduction-to-probability-and-statistics-spring-2014/readings/MIT18_05S14_Reading24.pdf">tutorial</a> on bootstrap method.
             </li>
             <li>
                
